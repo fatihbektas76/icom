@@ -1,0 +1,79 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+:root {
+  --bg-primary:      #0D0D0D;
+  --bg-card:         #161616;
+  --bg-card-dark:    #111111;
+  --border:          #1C1C1C;
+  --border-light:    #2A2A2A;
+  --accent:          #F05252;
+  --accent-hover:    #D93F3F;
+  --text-primary:    #FFFFFF;
+  --text-secondary:  #C8C8C8;
+  --text-muted:      #888888;
+  --text-dark:       #555555;
+  --icon-bg:         #F05252;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Partikel-Canvas Hero */
+canvas#particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Animierter Pulse-Dot */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* Flow-Pulse-Animation */
+@keyframes flowPulse {
+  0%   { left: -60%; }
+  100% { left: 110%; }
+}
+
+/* Count-Up Animation */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Range Slider Styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #1C1C1C;
+  border-radius: 3px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #F05252;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #F05252;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
