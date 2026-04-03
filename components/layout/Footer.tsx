@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Logo from '@/components/ui/Logo'
 
 export default function Footer() {
   return (
@@ -7,15 +8,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-8">
           {/* Col 1: Logo + Adresse */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 14C10 10 15 18 20 14C25 10 30 18 35 14" stroke="#F05252" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M5 20C10 16 15 24 20 20C25 16 30 24 35 20" stroke="#F05252" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M5 26C10 22 15 30 20 26C25 22 30 30 35 26" stroke="#F05252" strokeWidth="2.5" strokeLinecap="round" />
-              </svg>
-              <span className="text-lg font-bold text-white">
-                i<span className="text-icom-accent">.</span>COM
-              </span>
+            <div className="mb-4">
+              <Logo size="sm" />
             </div>
             <div className="text-sm text-icom-muted space-y-1">
               <p>Intelligent Commerce Group S.a.r.l.</p>

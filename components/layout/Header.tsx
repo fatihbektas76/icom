@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import Logo from '@/components/ui/Logo'
 
 const navLinks = [
   { href: '/', label: 'Start' },
@@ -10,16 +11,6 @@ const navLinks = [
   { href: '/kontakt', label: 'Kontakt' },
 ]
 
-function LogoSVG() {
-  return (
-    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5 14C10 10 15 18 20 14C25 10 30 18 35 14" stroke="#F05252" strokeWidth="2.5" strokeLinecap="round" />
-      <path d="M5 20C10 16 15 24 20 20C25 16 30 24 35 20" stroke="#F05252" strokeWidth="2.5" strokeLinecap="round" />
-      <path d="M5 26C10 22 15 30 20 26C25 22 30 30 35 26" stroke="#F05252" strokeWidth="2.5" strokeLinecap="round" />
-    </svg>
-  )
-}
-
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -28,12 +19,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <LogoSVG />
-            <span className="text-xl font-bold text-white">
-              i<span className="text-icom-accent">.</span>COM
-            </span>
-          </Link>
+          <Logo size="md" />
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
