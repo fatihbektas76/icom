@@ -1,92 +1,103 @@
 'use client'
-import { useState } from 'react'
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import Logo from '@/components/ui/Logo'
-
-const navLinks = [
-  { href: '/', label: 'Start' },
-  { href: '/loesungen', label: 'Lösungen' },
-  { href: '/vision', label: 'Vision' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/kontakt', label: 'Kontakt' },
-]
+import Link from 'next/link'
 
 export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 bg-icom-black/95 backdrop-blur-sm border-b border-icom-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Logo size="md" />
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm text-icom-muted hover:text-white transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Right Section */}
-          <div className="hidden md:flex items-center gap-4">
-            <select className="bg-transparent border border-icom-border-light rounded-md px-2 py-1 text-xs text-icom-muted outline-none">
-              <option value="de">DE</option>
-              <option value="en">EN</option>
-            </select>
-            <Link
-              href="/kontakt"
-              className="border border-white/30 hover:border-icom-accent text-white text-sm px-4 py-2 rounded-lg transition-colors"
-            >
-              Kontakt
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-white"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menü"
-          >
-            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-              {menuOpen ? (
-                <path d="M6 6l12 12M6 18L18 6" />
-              ) : (
-                <path d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
-        </div>
-
-        {/* Mobile Nav */}
-        {menuOpen && (
-          <nav className="md:hidden pb-4 border-t border-icom-border mt-2 pt-4">
-            {navLinks.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block py-2 text-sm text-icom-muted hover:text-white transition-colors"
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link
-              href="/kontakt"
-              className="inline-block mt-3 border border-white/30 text-white text-sm px-4 py-2 rounded-lg"
-              onClick={() => setMenuOpen(false)}
-            >
-              Kontakt
-            </Link>
-          </nav>
-        )}
+    <header
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '16px 40px',
+        borderBottom: scrolled ? '1px solid rgba(180,30,30,0.4)' : '1px solid #1c1c1c',
+        background: scrolled ? '#F05252' : 'rgba(13,13,13,0.95)',
+        backdropFilter: 'blur(12px)',
+        transition: 'background 0.35s ease, border-color 0.35s ease',
+      }}
+    >
+      {/* Logo – Text wird bei scroll schwarz */}
+      <div style={{ filter: scrolled ? 'brightness(0) invert(1)' : 'none', transition: 'filter 0.35s ease' }}>
+        <Logo size="md" />
       </div>
+
+      {/* Sprachauswahl */}
+      <div style={{
+        border: `1px solid ${scrolled ? 'rgba(255,255,255,0.4)' : '#2a2a2a'}`,
+        borderRadius: 6,
+        padding: '5px 13px',
+        fontSize: 12,
+        color: scrolled ? '#fff' : '#666',
+        transition: 'all 0.35s ease',
+        cursor: 'pointer',
+      }}>
+        Deutsch ▾
+      </div>
+
+      {/* Nav Links */}
+      <nav style={{ display: 'flex', gap: 26, fontSize: 13 }}>
+        {['Lösungen', 'Vision', 'Blog', 'Mehr'].map((item) => (
+          <Link
+            key={item}
+            href={`/${item.toLowerCase()}`}
+            style={{
+              color: scrolled ? 'rgba(255,255,255,0.85)' : '#666',
+              textDecoration: 'none',
+              transition: 'color 0.35s ease',
+            }}
+            onMouseEnter={e => {
+              (e.target as HTMLElement).style.color = scrolled ? '#fff' : '#fff'
+            }}
+            onMouseLeave={e => {
+              (e.target as HTMLElement).style.color = scrolled ? 'rgba(255,255,255,0.85)' : '#666'
+            }}
+          >
+            {item}
+          </Link>
+        ))}
+      </nav>
+
+      {/* Kontakt Button */}
+      <Link
+        href="/kontakt"
+        style={{
+          border: `1px solid ${scrolled ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.2)'}`,
+          background: scrolled ? 'rgba(255,255,255,0.15)' : 'transparent',
+          borderRadius: 6,
+          padding: '7px 20px',
+          fontSize: 13,
+          color: '#fff',
+          textDecoration: 'none',
+          transition: 'all 0.35s ease',
+          backdropFilter: scrolled ? 'blur(4px)' : 'none',
+        }}
+        onMouseEnter={e => {
+          const el = e.currentTarget as HTMLElement
+          el.style.background = scrolled ? 'rgba(255,255,255,0.25)' : 'rgba(240,82,82,0.15)'
+          el.style.borderColor = '#fff'
+        }}
+        onMouseLeave={e => {
+          const el = e.currentTarget as HTMLElement
+          el.style.background = scrolled ? 'rgba(255,255,255,0.15)' : 'transparent'
+          el.style.borderColor = scrolled ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.2)'
+        }}
+      >
+        Kontakt
+      </Link>
     </header>
   )
 }
