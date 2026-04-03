@@ -1,13 +1,72 @@
 'use client'
 import { useEffect, useState } from 'react'
 
+function KarteIcon({ active }: { active: boolean }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className={active ? 'text-white' : 'text-icom-muted'}>
+      <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M2 9h20" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M6 13h3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+    </svg>
+  )
+}
+
+function PSPIcon({ active }: { active: boolean }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className={active ? 'text-white' : 'text-icom-muted'}>
+      <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M2 17l10 5 10-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  )
+}
+
+function GlobusIcon({ active }: { active: boolean }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className={active ? 'text-white' : 'text-icom-muted'}>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M12 3c-2.5 3-4 5.5-4 9s1.5 6 4 9" stroke="currentColor" strokeWidth="1.3"/>
+      <path d="M12 3c2.5 3 4 5.5 4 9s-1.5 6-4 9" stroke="currentColor" strokeWidth="1.3"/>
+      <path d="M3 12h18" stroke="currentColor" strokeWidth="1.3"/>
+      <path d="M3.5 8h17M3.5 16h17" stroke="currentColor" strokeWidth="1" opacity=".5"/>
+    </svg>
+  )
+}
+
+function BankIcon({ active }: { active: boolean }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className={active ? 'text-white' : 'text-icom-muted'}>
+      <path d="M3 21h18M3 10h18M12 3L3 10h18L12 3z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M6 10v11M10 10v11M14 10v11M18 10v11" stroke="currentColor" strokeWidth="1.3"/>
+    </svg>
+  )
+}
+
+function CheckIcon({ active }: { active: boolean }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className={active ? 'text-white' : 'text-icom-muted'}>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M8 12l3 3 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
+
+function HausIcon({ active }: { active: boolean }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className={active ? 'text-white' : 'text-icom-muted'}>
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M9 22V12h6v10" stroke="currentColor" strokeWidth="1.5"/>
+    </svg>
+  )
+}
+
 const nodes = [
-  { label: 'Karte', icon: '💳' },
-  { label: 'PSP', icon: '🔄' },
-  { label: 'Kartennetzwerk', icon: '🌐' },
-  { label: 'Issuer-Bank', icon: '🏦' },
-  { label: 'Genehmigung', icon: '✅' },
-  { label: 'Händler', icon: '🏪' },
+  { label: 'Karte', Icon: KarteIcon },
+  { label: 'PSP', Icon: PSPIcon },
+  { label: 'Kartennetzwerk', Icon: GlobusIcon },
+  { label: 'Issuer-Bank', Icon: BankIcon },
+  { label: 'Genehmigung', Icon: CheckIcon },
+  { label: 'Händler', Icon: HausIcon },
 ]
 
 export default function PaymentFlow() {
@@ -33,7 +92,7 @@ export default function PaymentFlow() {
                   : 'bg-icom-card border-icom-border text-icom-gray'
               }`}
             >
-              <span className="text-xl">{node.icon}</span>
+              <node.Icon active={i === activeIndex} />
               <span className="text-xs font-medium text-center">{node.label}</span>
             </div>
             {i < nodes.length - 1 && (
@@ -62,7 +121,7 @@ export default function PaymentFlow() {
                   : 'bg-icom-card border-icom-border text-icom-gray'
               }`}
             >
-              <span className="text-xl">{node.icon}</span>
+              <node.Icon active={i === activeIndex} />
               <span className="text-sm font-medium">{node.label}</span>
             </div>
             <span className="text-icom-dark text-xs">{i + 1}/6</span>

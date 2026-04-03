@@ -1,11 +1,10 @@
-'use client'
 import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="bg-icom-black border-t border-icom-border mt-20">
+    <footer className="bg-icom-black border-t border-icom-border mt-20 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-8">
           {/* Col 1: Logo + Adresse */}
           <div>
             <div className="flex items-center gap-2 mb-4">
@@ -52,40 +51,21 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Col 3: Newsletter */}
-          <div>
-            <h4 className="text-sm font-semibold text-white mb-4">Newsletter</h4>
-            <p className="text-sm text-icom-muted mb-3">
-              Payment-Insights direkt ins Postfach.
-            </p>
-            <form className="flex gap-2" onSubmit={e => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="E-Mail-Adresse"
-                className="flex-1 bg-icom-card border border-icom-border rounded-md px-3 py-2 text-sm text-white placeholder:text-icom-dark outline-none focus:border-icom-accent transition-colors"
-              />
-              <button
-                type="submit"
-                className="bg-icom-accent hover:bg-icom-accent-hover text-white text-sm px-4 py-2 rounded-md transition-colors"
-              >
-                Absenden
-              </button>
-            </form>
-          </div>
-
-          {/* Col 4: Social + Legal */}
+          {/* Col 3: Social + Legal */}
           <div>
             <h4 className="text-sm font-semibold text-white mb-4">Folge uns</h4>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/intelligent-commerce-group-s-a-r-l/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-icom-muted hover:text-white transition-colors mb-6"
+              className="w-9 h-9 rounded-lg border border-[#1c1c1c] flex items-center justify-center transition-all duration-200 hover:border-[#555] mb-6"
+              aria-label="iCOM Group auf LinkedIn"
             >
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#555">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
               </svg>
-              LinkedIn
             </a>
             <div className="flex flex-col gap-2">
               <Link href="/impressum" className="text-sm text-icom-muted hover:text-white transition-colors">
@@ -102,7 +82,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-icom-border mt-12 pt-8 text-center text-sm text-icom-dark">
+        <div className="border-t border-icom-border mt-4 pt-8 text-center text-sm text-icom-dark">
           © 2025 i.COM – Intelligent Commerce Group S.a.r.l. Alle Rechte vorbehalten.
         </div>
       </div>

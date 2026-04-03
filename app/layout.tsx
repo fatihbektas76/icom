@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import ParticleBackground from '@/components/ui/ParticleBackground'
 import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -34,9 +35,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           gtag('config', '${GA_ID}');
         `}</Script>
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} relative`}>
+        <ParticleBackground />
         <Header />
-        <main>{children}</main>
+        <main className="relative z-10">{children}</main>
         <Footer />
       </body>
     </html>

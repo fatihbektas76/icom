@@ -1,0 +1,37 @@
+name: Auto LinkedIn Post
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/blog/**'
+      - 'content/wissen/**'
+      - 'content/payment-kosten/**'
+      - 'content/psp-vergleich/**'
+jobs:
+  post-to-linkedin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install @anthropic-ai/sdk gray-matter
+      - name: Detect new article
+        id: detect
+        run: |
+          NEW_FILE=$(git diff --name-only HEAD~1 HEAD -- \
+            'content/blog/**' 'content/wissen/**' \
+            'content/payment-kosten/**' 'content/psp-vergleich/**' \
+            | grep -E '\.(md|mdx)' | head -n 1)
+          echo "file=$NEW_FILE" >> $GITHUB_OUTPUT
+      - name: Generate and publish LinkedIn post
+        if: steps.detect.outputs.file != ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_ORGANIZATION_ID: ${{ secrets.LINKEDIN_ORGANIZATION_ID }}
+          ARTICLE_FILE: ${{ steps.detect.outputs.file }}
+          SITE_URL: https://icom-group.net
+        run: node scripts/linkedin-post.mjs

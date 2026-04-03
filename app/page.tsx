@@ -3,6 +3,7 @@ import CountUp from '@/components/ui/CountUp'
 import PaymentFlow from '@/components/ui/PaymentFlow'
 import PaymentRechner from '@/components/tools/PaymentRechner'
 import PSPBars from '@/components/ui/PSPBars'
+import TestimonialSection from '@/components/sections/TestimonialSection'
 import { OrganizationSchema } from '@/components/seo/SchemaMarkup'
 import Link from 'next/link'
 
@@ -194,42 +195,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Messbare Ergebnisse</h2>
-          <p className="text-icom-gray max-w-2xl mx-auto">
-            Unsere Kunden sparen durchschnittlich 25 % ihrer Payment-Kosten ein.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { metric: '−52%', label: 'No-Show-Rate', company: 'Boutique-Hotel, München', quote: 'Durch paybyMail und Pre-Auth konnten wir No-Shows halbieren.' },
-            { metric: '−34%', label: 'Payment-Kosten', company: 'Online-Shop, Berlin', quote: 'Der Wechsel zu Interchange++ hat sich vom ersten Monat an gerechnet.' },
-            { metric: '+28%', label: 'Conversion-Rate', company: 'SaaS-Startup, Hamburg', quote: 'Lokale Zahlungsarten und optimierter Checkout haben den Unterschied gemacht.' },
-          ].map(item => (
-            <div
-              key={item.label}
-              className="bg-icom-card border border-icom-border rounded-xl p-6"
-            >
-              <div className="text-3xl font-bold text-icom-accent mb-1">{item.metric}</div>
-              <div className="text-sm text-icom-muted mb-4">{item.label}</div>
-              <p className="text-sm text-icom-gray leading-relaxed mb-4">&ldquo;{item.quote}&rdquo;</p>
-              <div className="text-xs text-icom-dark">{item.company}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Kundenstimmen */}
+      <TestimonialSection />
 
       {/* Partner-Logos */}
-      <section className="border-y border-icom-border bg-icom-card-dark">
+      <section className="border-y border-icom-border bg-icom-card-dark relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center mb-8">
             <p className="text-sm text-icom-dark uppercase tracking-wider">Unsere Partner</p>
           </div>
           <div className="flex justify-center items-center gap-12 md:gap-20 flex-wrap">
             {['Unzer', 'vobapay', 'secupay'].map(partner => (
-              <div key={partner} className="text-xl font-bold text-icom-muted/50">
+              <div
+                key={partner}
+                className="text-[#282828] text-2xl font-bold tracking-wide cursor-default transition-all duration-300 hover:text-white hover:[text-shadow:0_0_24px_rgba(255,255,255,0.2)]"
+              >
                 {partner}
               </div>
             ))}
