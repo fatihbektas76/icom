@@ -8,6 +8,34 @@ const PSP_RATES: Record<string, number> = {
   sumup:   1.69,
 }
 
+const MIN_VOLUME = 5000
+const MAX_VOLUME = 20_000_000
+const LOG_MIN = Math.log(MIN_VOLUME)
+const LOG_MAX = Math.log(MAX_VOLUME)
+
+function sliderToVolume(slider: number): number {
+  const value = Math.exp(LOG_MIN + (slider / 100) * (LOG_MAX - LOG_MIN))
+  if (value >= 1_000_000) return Math.round(value / 100_000) * 100_000
+  if (value >= 100_000)   return Math.round(value / 10_000)  * 10_000
+  if (value >= 10_000)    return Math.round(value / 1_000)   * 1_000
+  return Math.round(value / 500) * 500
+}
+
+function volumeToSlider(volume: number): number {
+  return ((Math.log(volume) - LOG_MIN) / (LOG_MAX - LOG_MIN)) * 100
+}
+
+function formatVolume(volume: number): string {
+  if (volume >= 1_000_000) {
+    const mio = volume / 1_000_000
+    return `${mio.toLocaleString('de-DE', { maximumFractionDigits: 1 })} Mio. €`
+  }
+  if (volume >= 10_000) {
+    return `${Math.round(volume / 1000).toLocaleString('de-DE')}k €`
+  }
+  return `${volume.toLocaleString('de-DE')} €`
+}
+
 export default function PaymentRechner() {
   const [volume, setVolume] = useState(80000)
   const [psp, setPsp] = useState('stripe')
@@ -22,19 +50,26 @@ export default function PaymentRechner() {
     <div className="bg-icom-card border border-icom-border rounded-xl p-7">
       {/* Umsatz-Slider */}
       <div className="mb-5">
-        <label className="block text-[11px] text-icom-dark uppercase tracking-wider mb-2">
-          Monatlicher Kartenumsatz
-        </label>
-        <div className="flex items-center gap-3">
-          <input
-            type="range" min={5000} max={500000} step={5000}
-            value={volume}
-            onChange={e => setVolume(Number(e.target.value))}
-            className="flex-1 accent-icom-accent"
-          />
-          <span className="text-icom-accent font-bold text-sm min-w-[90px] text-right">
-            {volume.toLocaleString('de-DE')} €
+        <div className="flex items-baseline justify-between mb-2">
+          <label className="block text-[11px] text-icom-dark uppercase tracking-wider">
+            Monatlicher Kartenumsatz
+          </label>
+          <span className="text-icom-accent font-bold text-base tabular-nums">
+            {formatVolume(volume)}
           </span>
+        </div>
+        <input
+          type="range" min={0} max={100} step={0.1}
+          value={volumeToSlider(volume)}
+          onChange={e => setVolume(sliderToVolume(Number(e.target.value)))}
+          className="w-full accent-icom-accent"
+        />
+        <div className="flex justify-between text-[10px] text-icom-dark mt-1.5">
+          <span>5k</span>
+          <span>50k</span>
+          <span>500k</span>
+          <span>5 Mio.</span>
+          <span>20 Mio.</span>
         </div>
       </div>
 

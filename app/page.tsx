@@ -1,9 +1,10 @@
 import ParticleCanvas from '@/components/ui/ParticleCanvas'
-import CountUp from '@/components/ui/CountUp'
 import PaymentFlow from '@/components/ui/PaymentFlow'
 import PaymentRechner from '@/components/tools/PaymentRechner'
 import PSPBars from '@/components/ui/PSPBars'
 import TestimonialSection from '@/components/sections/TestimonialSection'
+import CinematicJourney from '@/components/sections/CinematicJourney'
+import StatsSection from '@/components/sections/StatsSection'
 import { OrganizationSchema } from '@/components/seo/SchemaMarkup'
 import Link from 'next/link'
 
@@ -45,31 +46,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stats Bar */}
-      <section className="border-y border-icom-border bg-icom-card-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-icom-accent">
-                <CountUp target={10} suffix="+" />
-              </div>
-              <div className="text-sm text-icom-muted mt-1">Jahre Erfahrung</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-icom-accent">
-                <CountUp target={4000} suffix="+" />
-              </div>
-              <div className="text-sm text-icom-muted mt-1">Kunden beraten</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-icom-accent">
-                <CountUp target={500} suffix="+" />
-              </div>
-              <div className="text-sm text-icom-muted mt-1">Projekte umgesetzt</div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Cinematic Scrollytelling — 3 Akte */}
+      <CinematicJourney />
+
+      {/* Stats — iCOM in Zahlen */}
+      <StatsSection />
+
 
       {/* Services */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -200,20 +182,32 @@ export default function HomePage() {
 
       {/* Partner-Logos */}
       <section className="border-y border-icom-border bg-icom-card-dark relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center mb-8">
-            <p className="text-sm text-icom-dark uppercase tracking-wider">Unsere Partner</p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+          <div className="text-center mb-10 flex items-center justify-center gap-4">
+            <span className="h-px w-12 bg-icom-accent/40" />
+            <p className="text-xs text-icom-accent/80 uppercase tracking-[0.3em] font-medium">
+              Unsere Partner
+            </p>
+            <span className="h-px w-12 bg-icom-accent/40" />
           </div>
-          <div className="flex justify-center items-center gap-12 md:gap-20 flex-wrap">
+          <div className="flex justify-center items-center gap-10 md:gap-16 flex-wrap">
             {['Unzer', 'vobapay', 'secupay'].map(partner => (
               <div
                 key={partner}
-                className="text-[#282828] text-2xl font-bold tracking-wide cursor-default transition-all duration-300 hover:text-white hover:[text-shadow:0_0_24px_rgba(255,255,255,0.2)]"
+                className="group relative px-6 py-4 rounded-lg border border-icom-border hover:border-icom-accent/40 bg-icom-card/40 hover:bg-icom-card transition-all duration-300 cursor-default"
               >
-                {partner}
+                <span className="text-icom-gray group-hover:text-white text-2xl font-bold tracking-wide transition-colors duration-300">
+                  {partner}
+                </span>
+                <span className="absolute inset-0 rounded-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ boxShadow: '0 0 32px rgba(240,82,82,0.18)' }}
+                />
               </div>
             ))}
           </div>
+          <p className="text-center text-xs text-icom-muted mt-6">
+            Zertifizierte Integrations- und Acquiring-Partner für Deutschland & DACH.
+          </p>
         </div>
       </section>
 
